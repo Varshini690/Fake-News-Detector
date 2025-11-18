@@ -10,7 +10,7 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "http://127.0.0.1:8000/predict";
+  const API_URL = "https://fake-news-detector-gsnf.onrender.com/predict";
 
   async function handlePredict(e) {
     e.preventDefault();

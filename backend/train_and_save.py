@@ -1,10 +1,9 @@
 import os
 import pandas as pd
 import re
-import string
 import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import PassiveAggressiveClassifier
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -35,17 +34,16 @@ def train_and_save():
     X = df["content"]
     y = df["label"]
 
-    print("Training model...")
+    print("Training MultinomialNB model...")
     pipeline = Pipeline([
         ("tfidf", TfidfVectorizer(stop_words="english", max_features=20000)),
-        ("clf", PassiveAggressiveClassifier(max_iter=2000, random_state=42)),
+        ("clf", MultinomialNB()),
     ])
 
     pipeline.fit(X, y)
 
     print("Saving model...")
     joblib.dump(pipeline, MODEL_PATH)
-
     print("Model saved at:", MODEL_PATH)
 
 if __name__ == "__main__":
